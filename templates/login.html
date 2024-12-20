@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Login Page</title>
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <!-- Google Fonts Roboto -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap"
+    />
+    <!-- Bootstrap -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Styles -->
+    <style>
+      /* Full-screen Video Background */
+      #video-bg {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: -1; /* Place it behind other elements */
+      }
+
+      /* Centered Login Card */
+      /* Updated Login Card for Glassmorphism */
+.login-card {
+  width: 350px;
+  background: rgba(255, 255, 255, 0.2); /* Semi-transparent white */
+  backdrop-filter: blur(10px); /* Blur effect */
+  -webkit-backdrop-filter: blur(10px); /* Safari support */
+  border-radius: 12px;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2); /* Soft shadow */
+  padding: 20px;
+  position: relative;
+  z-index: 1; /* Ensure it's above the video */
+  border: 1px solid rgba(255, 255, 255, 0.3); /* Subtle border */
+}
+
+
+      /* Form controls */
+      .form-control,
+      .btn {
+        height: 45px;
+        border-radius: 8px;
+      }
+
+      /* Flash Messages */
+      .alert {
+        font-size: 14px;
+        padding: 8px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Background Video -->
+    <video id="video-bg" autoplay muted loop>
+      <source src="{{ url_for('static', filename='31569-387675206.mp4') }}" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+
+    <!-- Section: Login Form -->
+    <section>
+      <div class="d-flex justify-content-center align-items-center vh-100">
+        <div class="login-card">
+          <h2 class="fw-bold text-center mb-4">Login</h2>
+
+          <!-- Flash Messages -->
+          {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+          <div class="container mb-3">
+            {% for category, message in messages %}
+            <div class="alert alert-{{ category }}">{{ message }}</div>
+            {% endfor %}
+          </div>
+          {% endif %}
+          {% endwith %}
+
+          <!-- Login Form -->
+          <form action="/login" method="POST">
+            <!-- Email input -->
+            <div class="mb-3">
+              <input
+                type="email"
+                class="form-control"
+                placeholder="Email address"
+                name="email"
+                required
+              />
+            </div>
+
+            <!-- Password input -->
+            <div class="mb-3">
+              <input
+                type="password"
+                class="form-control"
+                placeholder="Password"
+                name="password"
+                required
+              />
+            </div>
+
+            <!-- Submit button -->
+            <button type="submit" class="btn btn-primary w-100 mb-3">
+              Login
+            </button>
+
+            <!-- Register Link -->
+            <p class="text-center text-muted">
+              Not a member?
+              <a href="/register" class="fw-bold text-dark"><u>Register</u></a>
+            </p>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bootstrap Bundle JS -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    ></script>
+
+    <!-- Auto-hide Flash Messages -->
+    <script>
+      setTimeout(function () {
+        document.querySelectorAll(".alert").forEach(function (alert) {
+          alert.style.display = "none";
+        });
+      }, 5000); // Hides flash messages after 5 seconds
+    </script>
+  </body>
+</html>

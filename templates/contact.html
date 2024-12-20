@@ -1,0 +1,134 @@
+{% extends "headers.html" %}
+{% block content %}
+
+<!-- Main Content -->
+<main>
+  <div class="container" style="max-width: 650px; margin: 50px auto; background: linear-gradient(135deg, #ffffff, #f9f9f9); 
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1); border-radius: 20px; padding: 40px; position: relative; overflow: hidden;">
+    
+    <!-- Decorative Circle Element -->
+    <div style="position: absolute; width: 150px; height: 150px; background: rgba(0, 123, 255, 0.2); 
+      border-radius: 50%; top: -50px; left: -50px;"></div>
+    <div style="position: absolute; width: 100px; height: 100px; background: rgba(0, 123, 255, 0.1); 
+      border-radius: 50%; bottom: -30px; right: -30px;"></div>
+    
+    <h1 style="text-align: center; font-weight: bold; margin-bottom: 15px; color: #333333; 
+      text-shadow: 1px 1px 2px #ccc;">Contact Us</h1>
+    <p class="display-7 text-center" style="color: #555555; font-size: 1.1rem; margin-bottom: 30px; line-height: 1.6;">
+      Have any questions or suggestions? Reach out, and we'll get back to you as soon as possible.
+    </p>
+
+    <!-- Success Alert -->
+    <div style="display: none;" class="alert alert-success text-center" id="success-alert" role="alert">
+      🎉 Thank you for contacting us! We’ll respond shortly.
+    </div>
+
+    <!-- Form -->
+    <form id="form">
+      <div class="mb-4">
+        <label for="name" class="form-label" style="font-weight: 600; color: #333;">Your Name</label>
+        <input type="text" class="form-control" id="name" name="name" placeholder="John Doe"
+          style="border: 2px solid #ddd; border-radius: 10px; padding: 12px; font-size: 1rem; transition: all 0.3s;">
+      </div>
+      <div class="mb-4">
+        <label for="email" class="form-label" style="font-weight: 600; color: #333;">Your Email</label>
+        <input type="email" class="form-control" id="email" name="email" placeholder="example@mail.com"
+          style="border: 2px solid #ddd; border-radius: 10px; padding: 12px; font-size: 1rem; transition: all 0.3s;">
+      </div>
+      <div class="mb-4">
+        <label for="message" class="form-label" style="font-weight: 600; color: #333;">Your Message</label>
+        <textarea class="form-control" id="message" name="message" rows="5"
+          placeholder="Write your message here..."
+          style="border: 2px solid #ddd; border-radius: 10px; padding: 12px; font-size: 1rem; transition: all 0.3s;"></textarea>
+      </div>
+      <div class="text-center">
+        <input type="submit" class="btn" id="button" value="Send Message"
+          style="background-color: #007bff; color: #fff; border: none; padding: 12px 25px; 
+          font-weight: 600; border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+          transition: transform 0.3s ease, background-color 0.3s;">
+      </div>
+    </form>
+  </div>
+</main>
+
+<!-- Floating Share Icon -->
+<div class="floating-container">
+  <div class="floating-button">
+    <i class="fa-solid fa-share-from-square"></i>
+  </div>
+  <!-- Elements -->
+  <div class="element-container">
+    <!-- Facebook -->
+    <a class="float-element" href="https://www.facebook.com/sharer/sharer.php?u=https%3A//sanjeev02.pythonanywhere.com/"
+      target="_blank">
+      <i class="fa-brands fa-facebook"></i>
+    </a>
+
+    <!-- WhatsApp -->
+    <a class="float-element"
+      href="https://api.whatsapp.com/send?text=Check%20out%20this%20page:%20https://sanjeev02.pythonanywhere.com"
+      target="_blank">
+      <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <!-- Twitter -->
+    <a class="float-element"
+      href="https://twitter.com/intent/tweet?text=Check%20out%20this%20page:%20https://sanjeev02.pythonanywhere.com"
+      target="_blank">
+      <i class="fa-brands fa-x-twitter"></i>
+    </a>
+
+    <!-- LinkedIn -->
+    <a class="float-element"
+      href="https://www.linkedin.com/in/kowshik-emmadisetty-3a7874248/" target="_blank">
+      <i class="fa-brands fa-linkedin"></i>
+    </a>
+
+    <!-- Telegram -->
+    <a class="float-element"
+      href="https://t.me/share?url=https%3A%2F%2Fsanjeev02.pythonanywhere.com%2F&text=Check%20this%20out"
+      target="_blank">
+      <i class="fa-brands fa-telegram"></i>
+    </a>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="jumbotron text-center text-white fixed-bottom" style="background-color: #030303">
+  <div class="text-center p-3" style="background-color: rgba(255, 255, 255, 0)">
+    <p>&copy {{now.year}} Copyright</p>
+    <p>
+      Made by 👑
+      <a style="color: #0ed9ddd6; text-decoration: none" href="#">Sanjeev</a>
+    </p>
+  </div>
+</footer>
+
+<!-- EmailJS Setup -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script type="text/javascript">
+  emailjs.init('YOUR_PUBLIC_KEY'); // Replace with your EmailJS public key
+</script>
+
+<script>
+const btn = document.getElementById('button');
+const alerter = document.getElementById('success-alert');
+
+document.getElementById('form')
+ .addEventListener('submit', function(event) {
+   event.preventDefault();
+   btn.value = 'Submitting...';
+
+   setTimeout(() => {
+      alerter.style.display = 'block';
+      btn.value = 'Send Message';
+      setTimeout(() => alerter.style.display = 'none', 4000);
+   }, 1500);
+});
+</script>
+
+{% endblock %}
+
+</body>
+
+</html>

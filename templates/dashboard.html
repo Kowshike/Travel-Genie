@@ -1,0 +1,236 @@
+{% extends "headers.html" %}
+{% block content %}
+<!-- Import Google Fonts -->
+<link
+  href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+  rel="stylesheet"
+/>
+
+<!-- Custom CSS -->
+<style>
+  body {
+    font-family: "Roboto", sans-serif;
+    background-color: #f4f8ff;
+    color: #333;
+  }
+
+  main {
+    padding: 20px 0;
+  }
+
+  /* Table Styling */
+  table {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+  }
+
+  table th,
+  table td {
+    text-align: center;
+    vertical-align: middle;
+  }
+
+  table tbody tr:hover {
+    background-color: #f1f5ff;
+    cursor: pointer;
+  }
+
+  /* Heading */
+  h1 {
+    color: #0a4dd0;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  h5 {
+    color: #2a2e36;
+  }
+
+  /* Buttons */
+  .btn-custom {
+    background: linear-gradient(135deg, #4f84ff, #1e62d0);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    transition: transform 0.3s, background 0.3s;
+    border-radius: 8px;
+  }
+
+  .btn-custom:hover {
+    transform: scale(1.05);
+    background: linear-gradient(135deg, #6baaff, #4a80e6);
+  }
+
+  /* Share Buttons */
+  .floating-button {
+    background: #1e62d0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+  }
+
+  .float-element i {
+    color: white;
+  }
+
+  .float-element:hover {
+    transform: scale(1.2);
+  }
+
+  /* Footer */
+  footer {
+    background-color: #1e293b;
+    color: white;
+    padding: 20px 10px;
+    text-align: center;
+  }
+
+  footer a {
+    color: #6baaff;
+    text-decoration: none;
+    transition: color 0.3s, text-shadow 0.3s;
+  }
+
+  footer a:hover {
+    color: #ffffff;
+    text-shadow: 0px 0px 5px #6baaff;
+  }
+
+  /* Markdown Content */
+  #markdown-content {
+    padding: 15px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    color: #2a2e36;
+    line-height: 1.6;
+  }
+
+  /* Hotels Section */
+  .container h5 {
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    table {
+      font-size: 12px;
+    }
+  }
+</style>
+
+<!-- Main Content -->
+<main>
+  <div class="container">
+    <h1>Weather Information</h1>
+    <h5><b>Location:</b> {{weather_data['resolvedAddress']}}</h5>
+    <table class="table table-hover table-striped mt-4">
+      <thead class="bg-primary text-white">
+        <tr>
+          <th>Date</th>
+          <th>Current Weather Conditions</th>
+          <th>Max Temperature (in °C)</th>
+          <th>Min Temperature (in °C)</th>
+          <th>Precipitation Probability</th>
+          <th>Humidity</th>
+          <th>Weather Alerts</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for weather_data_item in weather_data['days'] %}
+        <tr>
+          <td>{{ weather_data_item['datetime'] }}</td>
+          <td>{{ weather_data_item['conditions'] }}</td>
+          <td>{{ weather_data_item['tempmax'] }}</td>
+          <td>{{ weather_data_item['tempmin'] }}</td>
+          <td>{{ weather_data_item['precipprob'] }}%</td>
+          <td>{{ weather_data_item['humidity'] }}%</td>
+          <td>{{ weather_data_item['description'] or 'None' }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="container mt-5">
+    <h1>Planned Itinerary</h1>
+    <p><em>This is a tentative itinerary optimized for your budget. Flexibility is key!</em></p>
+    <div id="markdown-content">{{ plan }}</div>
+  </div>
+  
+  <div class="container mt-4">
+    <h5>Recommended Budget-Friendly Options</h5>
+    <ul>
+      <li><b>Accommodations:</b> Affordable hotels or hostels will be suggested.</li>
+      <li><b>Activities:</b> Low-cost or free activities will be highlighted.</li>
+      <li><b>Food:</b> Budget-friendly dining options based on location.</li>
+    </ul>
+  </div>
+  
+  <!-- Hotels -->
+  <div class="container mt-4 text-center">
+    <h5>
+      For Hotels & Flight Booking:
+      <a href="https://www.booking.com" target="_blank">
+        <button class="btn btn-custom mt-2">Click Here</button>
+      </a>
+    </h5>
+  </div>
+</main>
+
+<!-- Share Icon -->
+<div class="floating-container">
+  <div class="floating-button">
+    <i class="fa-solid fa-share-from-square"></i>
+  </div>
+  <div class="element-container">
+    <a class="float-element" href="https://www.facebook.com/sharer" target="_blank">
+      <i class="fa-brands fa-facebook"></i>
+    </a>
+    <a class="float-element" href="https://api.whatsapp.com/send" target="_blank">
+      <i class="fa-brands fa-whatsapp"></i>
+    </a>
+    <a class="float-element" href="https://twitter.com/intent/tweet" target="_blank">
+      <i class="fa-brands fa-twitter"></i>
+    </a>
+    <a class="float-element" href="https://t.me/share" target="_blank">
+      <i class="fa-brands fa-telegram"></i>
+    </a>
+    <button id="download" class="float-element">
+      <i class="fa-solid fa-download"></i>
+    </button>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer>
+  <p>
+    &copy; {{now.year}} Copyright | Made With 💙 By
+    <a href="#">Sanjeev</a>
+  </p>
+</footer>
+
+<!-- Script for PDF and Markdown -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/markdown-it@11.0.1/dist/markdown-it.min.js"></script>
+<script>
+  const md = window.markdownit();
+  const html = md.render(document.getElementById("markdown-content").textContent);
+  document.getElementById("markdown-content").innerHTML = html;
+
+  document.getElementById("download").addEventListener("click", function () {
+    var element = document.querySelector("main");
+    var opt = {
+      margin: 0.5,
+      filename: "itinerary.pdf",
+      image: { type: "jpeg", quality: 0.98 },
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: "in", format: "letter", orientation: "portrait" },
+    };
+    html2pdf().from(element).set(opt).save();
+  });
+</script>
+{% endblock %}
